@@ -21,14 +21,14 @@ def generate_qr(content_data):
 app = Flask('')
 api = Api(app)
 
+app.url_map.strict_slashes = False
+
 class Test(Resource):
   def get(self, content):
     generate_qr(content)
     return send_file('qrcode001.png' , mimetype='image/png')
 
-
-
-api.add_resource(Test, '/api/restful/<string:content>')
+api.add_resource(Test, '/api/restful/<path:content>')
 
 def run():
   app.run(host='0.0.0.0',port=7210)
